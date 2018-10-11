@@ -24,7 +24,7 @@ This is the class with the highest hierarchy and therefore contains the most gen
 
 2. `void resetPartitions ();`
 
-   Method responsible for creating partitions for calculating the convolution, according to the size of the impulse response and the size of the host-buffer. It manages the creation of objects of the class OverlapAddConvolver, associating the partition of the response to the corresponding impulse and a pointer to the remaining buffer where they will write each convolution. In the creation of partitions, it is defined that the objects of the OverlapAddConvolver type, to which the first partitions of the impulse response are assigned, will process in the audio-thread the corresponding convolution (head convolvers) and that all other objects of the same type, process the convolution in a thread-pool to meet the real-time requirement (tail convolvers).
+   Method responsible for creating partitions for calculating the convolution, according to the size of the impulse response and the size of the host-buffer. It manages the creation of objects of the class **OverlapAddConvolver**, associating the partition of the response to the corresponding impulse and a pointer to the remaining buffer where they will write each convolution. In the creation of partitions, it is defined that the **OverlapAddConvolver** objects, to which the first partitions of the impulse response were assigned, will process in the audio-thread the corresponding convolution (head convolvers) and that all other objects of the same type, process the convolution in a thread-pool to meet the real-time requirement (tail convolvers).
 
 3. `void readIR (const String & path);`
 
@@ -32,7 +32,7 @@ This is the class with the highest hierarchy and therefore contains the most gen
    
 ### 2. OverlapAddConvolver Class
 
-An object of the type OverlapAddConvolver has a lower level responsibility, but of fundamental character. Each object of this type is created by assigning a partition of the impulse response with which one must calculate a convolution for each available audio frame. This class manages the use of the FFTW library for the calculation of the Discrete Fourier Transform. The most relevant methods of this class are:
+An **OverlapAddConvolver** object has a lower level responsibility, but of fundamental character. Each object of this type is created by assigning a partition of the impulse response with which one must calculate a convolution for each available audio frame. This class manages the use of the FFTW library for the calculation of the Discrete Fourier Transform. The most relevant methods of this class are:
 
 1. `void init_h(const float* _h)`
 
@@ -46,7 +46,7 @@ An object of the type OverlapAddConvolver has a lower level responsibility, but 
 
 A Thread Pool is a software design pattern used by convoLib to achieve concurrency in the calculation of convolution. A Thread Pool maintains multiple threads for simultaneous execution waiting for tasks to be assigned by a monitoring program. By maintaining a group of threads, the model increases performance and avoids latency in audio-thread execution due to frequent creation and destruction of threads for short-term tasks.
 
-The TailThreadPoolJob class manages the execution of the task assigned to each OverlapAddConvolver object when designated as tail convolver, in the creation of partitions that executes the HeadTailPartConv object in the `resetPartitions()` method.
+The **TailThreadPoolJob** class manages the execution of the task assigned to each **OverlapAddConvolver** object when designated as tail convolver, in the creation of partitions that executes the **HeadTailPartConv** object in the resetPartitions() method.
 
 ## About this Software
 convoLib was developed by **Antonio Escamilla Pinilla** and **Daniel Upegui FLorez** working for the Universidad Pontificia Bolivariana, in the context of a research project entitled **Software Development for Measurement, Processing and Analysis of Acoustic Impulse Responses**. Project funded by the Research Center for Development and Innovation CIDI-UPB with number 771B-06/17-23.
