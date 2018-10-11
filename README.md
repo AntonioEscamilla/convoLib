@@ -80,9 +80,9 @@ To use **convoLib** to develop the audio application, add `#include "convClass/S
 Then in this class, it is enough to instantiate three different objects to use the library. These are: a HeadTailPartConv type object as a convolution processor and the RemainBuffer and AccBuffer objects for accumulating audio samples in a remaining buffer and an accumulation buffer, as explained above.
 
 ```c++
-ScopedPointer<StereoHeadTailPartConv> convKernell;
-ScopedPointer<RemainBuffer> remainBuffer;
-ScopedPointer<AccuBuffer> accBuff; 
+ScopedPointer<StereoHeadTailPartConv>  convKernell;
+ScopedPointer<RemainBuffer>            remainBuffer;
+ScopedPointer<AccuBuffer>              accBuff; 
 ```
 
 ## About this Software
