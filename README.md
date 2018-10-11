@@ -15,15 +15,22 @@ To develop an audio application using convoLib, the user must be familiar with t
 **convoLib** was designed as a set of classes with a certain dependency and hierarchy, to perform a single task: Convoluting an impulse response with an audio signal in real time. Next, the classes that make up the library are described:
 
 1. Class HeadTailPartConv
+
 This is the class with the highest hierarchy and therefore contains the most general functionality in the task of convolving two audio signals. It is responsible for instantiating necessary objects of the other classes that make up the library and processing the audio signal in segments (frames) as required by the application (called client or Host in this context). The most relevant methods of this class are:
 
-  • void processBlock (float * wrtPointerL, float * wrtPointerR)
+```c++ 
+void processBlock (float * wrtPointerL, float * wrtPointerR); 
+```
   This method processes an audio segment coming from the Host and, therefore, must write in the host-buffer, the convolved     signal. This method also manages the use of two sample storage buffers: an accumulation buffer of audio samples for when     the size of the host-buffer is less than 4096 and a retentive buffer, where surplus samples of convolution calculations     are stored for previous audio frames.
 
-  • void resetPartitions ()
+```c++ 
+void resetPartitions ();
+```
   Method responsible for creating partitions for calculating the convolution, according to the size of the impulse response   and the size of the host-buffer. It manages the creation of objects of the class OverlapAddConvolver, associating the       partition of the response to the corresponding impulse and a pointer to the remaining buffer where they will write each     convolution. In the creation of partitions, it is defined that the objects of the OverlapAddConvolver type, to which the     first partitions of the impulse response are assigned, will process in the audio-thread the corresponding convolution       (head convolvers) and that all other objects of the same type, process the convolution in a thread-pool to meet the real-   time requirement (tail convolvers).
 
-  • void readIR (const String & path)
+```c++
+void readIR (const String & path);
+```
   Read .wav files with the response to the impulse used for the convolution.
 
 ## About this Software
