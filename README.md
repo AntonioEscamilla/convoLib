@@ -22,19 +22,21 @@ This is the class with the highest hierarchy and therefore contains the most gen
 void processBlock (float * wrtPointerL, float * wrtPointerR); 
 ```
 
-1. fefd
+   This method processes an audio segment coming from the Host and, therefore, must write in the host-buffer, the convolved    signal. This method also manages the use of two sample storage buffers: an accumulation buffer of audio samples for when    the size of the host-buffer is less than 4096 and a retentive buffer, where surplus samples of convolution calculations      are stored for previous audio frames
 
-⋅⋅⋅ This method processes an audio segment coming from the Host and, therefore, must write in the host-buffer, the convolved    signal. This method also manages the use of two sample storage buffers: an accumulation buffer of audio samples for when    the size of the host-buffer is less than 4096 and a retentive buffer, where surplus samples of convolution calculations      are stored for previous audio frames.
+1. ```c++ void processBlock (float * wrtPointerL, float * wrtPointerR);```
+
+   This method processes an audio segment coming from the Host and, therefore, must write in the host-buffer, the convolved    signal. This method also manages the use of two sample storage buffers: an accumulation buffer of audio samples for when    the size of the host-buffer is less than 4096 and a retentive buffer, where surplus samples of convolution calculations      are stored for previous audio frames.
 
 ```c++ 
 void resetPartitions ();
 ```
-...Method responsible for creating partitions for calculating the convolution, according to the size of the impulse response    and the size of the host-buffer. It manages the creation of objects of the class OverlapAddConvolver, associating the        partition of the response to the corresponding impulse and a pointer to the remaining buffer where they will write each      convolution. In the creation of partitions, it is defined that the objects of the OverlapAddConvolver type, to which the    first partitions of the impulse response are assigned, will process in the audio-thread the corresponding convolution        (head convolvers) and that all other objects of the same type, process the convolution in a thread-pool to meet the real-    time requirement (tail convolvers).
+Method responsible for creating partitions for calculating the convolution, according to the size of the impulse response and the size of the host-buffer. It manages the creation of objects of the class OverlapAddConvolver, associating the partition of the response to the corresponding impulse and a pointer to the remaining buffer where they will write each convolution. In the creation of partitions, it is defined that the objects of the OverlapAddConvolver type, to which the first partitions of the impulse response are assigned, will process in the audio-thread the corresponding convolution (head convolvers) and that all other objects of the same type, process the convolution in a thread-pool to meet the real-time requirement (tail convolvers).
 
 ```c++
 void readIR (const String & path);
 ```
-...Read .wav files with the response to the impulse used for the convolution.
+Read .wav files with the response to the impulse used for the convolution.
 
 ## About this Software
 convoLib was developed by **Antonio Escamilla Pinilla** and **Daniel Upegui FLorez** working for the Universidad Pontificia Bolivariana, in the context of a research project entitled **Software Development for Measurement, Processing and Analysis of Acoustic Impulse Responses**. Project funded by the Research Center for Development and Innovation CIDI-UPB with number 771B-06/17-23.
