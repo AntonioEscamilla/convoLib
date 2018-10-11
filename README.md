@@ -73,7 +73,7 @@ The file structure in the Projucer after adding the files (.cpp and .h) should b
 
 ![convoLib_4.png](https://github.com/AntonioEscamilla/images-in-readMe/blob/master/convoLib/convoLib_4.png)
 
-3. Code Interface
+3. convoLib Code Interface
 
 To use **convoLib** to develop the audio application, add `#include "convClass/StereoHeadTailPartConv.h"` to the header in the class where the audio samples should be processed each frame. Usually this class extends a method called *processBlock* or *audioDeviceIOCallback*.
 
@@ -81,8 +81,8 @@ Then in this class, it is enough to instantiate three different objects to use t
 
 ```c++
 ScopedPointer<StereoHeadTailPartConv>  convKernell;
-ScopedPointer<RemainBuffer>  		      remainBuffer;
-ScopedPointer<AccuBuffer> 			      accBuff; 
+ScopedPointer<RemainBuffer>  		   remainBuffer;
+ScopedPointer<AccuBuffer> 			   accBuff; 
 ```
 
 ## About this Software
