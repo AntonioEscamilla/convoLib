@@ -48,5 +48,39 @@ A Thread Pool is a software design pattern used by convoLib to achieve concurren
 
 The **TailThreadPoolJob** class manages the execution of the task assigned to each **OverlapAddConvolver** object when designated as tail convolver, in the creation of partitions that executes the **HeadTailPartConv** object in the resetPartitions() method.
 
+## Using convoLib
+To create a JUCE project where convoLib is used, the **Projucer** must include the files (.h and .cpp) that make up the library and configure the use of FFTW (previously compiled for the operating system). As a quick-use reference, this process is shown below:
+
+1. Including FFTW
+To include the FFTW library in a JUCE project, in the **Projucer** Config tab, select the Exporter (depending on the operating system) for which the project will be generated. And in Extra linker flags, write "-lfftw3". Like shown in the next figure.
+
+![]
+
+Then, in both Debug and Release sections, for the selected Exporter, the path for the search of headers and extra libraries should be added, as indicated in the figure.
+
+![]
+
+2. Including convoLib
+As the library is presented as a primary set of source code files (.h and .cpp) that do not require compilation, just add them to the **Projucer** project. To do this, all the files that make up the library must be copied and pasted into the /Source folder of the project, using the file browser according to the operating system.
+
+Using the **Projucer**, go to Files tab and over the Source folder, one must select using right click the option *add existing files* and add all the files of the library.
+
+![]
+
+The file structure in the Projucer after adding the files (.cpp and .h) should be as shown in the following figure.
+
+![]
+
+3. Code Interface
+To use **convoLib** to develop the audio application, add `#include "convClass/StereoHeadTailPartConv.h"` in the header in the class where the audio samples should be processed each frame. Usually this class extends a method called *processBlock* or *audioDeviceIOCallback*.
+
+Then in this class, it is enough to instantiate three different objects to use the library. These are: a HeadTailPartConv type object as a convolution processor and the RemainBuffer and AccBuffer objects for accumulating audio samples in a remaining buffer and an accumulation buffer, as explained above.
+
+```c++
+ScopedPointer<StereoHeadTailPartConv> convKernell;
+ScopedPointer<RemainBuffer>  		remainBuffer;
+ScopedPointer<AccuBuffer> 			accBuff; 
+```
+
 ## About this Software
 convoLib was developed by **Antonio Escamilla Pinilla** and **Daniel Upegui FLorez** working for the Universidad Pontificia Bolivariana, in the context of a research project entitled **Software Development for Measurement, Processing and Analysis of Acoustic Impulse Responses**. Project funded by the Research Center for Development and Innovation CIDI-UPB with number 771B-06/17-23.
