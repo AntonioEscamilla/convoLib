@@ -21,7 +21,10 @@ This is the class with the highest hierarchy and therefore contains the most gen
 ```c++ 
 void processBlock (float * wrtPointerL, float * wrtPointerR); 
 ```
-...This method processes an audio segment coming from the Host and, therefore, must write in the host-buffer, the convolved    signal. This method also manages the use of two sample storage buffers: an accumulation buffer of audio samples for when    the size of the host-buffer is less than 4096 and a retentive buffer, where surplus samples of convolution calculations      are stored for previous audio frames.
+
+1. fefd
+
+⋅⋅⋅ This method processes an audio segment coming from the Host and, therefore, must write in the host-buffer, the convolved    signal. This method also manages the use of two sample storage buffers: an accumulation buffer of audio samples for when    the size of the host-buffer is less than 4096 and a retentive buffer, where surplus samples of convolution calculations      are stored for previous audio frames.
 
 ```c++ 
 void resetPartitions ();
